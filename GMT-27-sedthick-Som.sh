@@ -17,7 +17,7 @@ gmt set FORMAT_GEO_MAP=dddF \
 # Overwrite defaults of GMT
 gmtdefaults -D > .gmtdefaults
 
-grdcut GlobSed-v2.nc -R39/70/-27/12 -Gsom_sed.nc
+gmt grdcut GlobSed-v2.nc -R39/70/-27/12 -Gsom_sed.nc
 
 gdalinfo som_sed.nc -stats
 # Minimum=8.000, Maximum=8652.404
@@ -143,5 +143,6 @@ gmt pstext -R0/10/0/15 -JX10/10 -X0.5c -Y13.0c -N -O \
 -0.3 11.0 GlobSed 5 arc minute grid Version 3 by NOAA World Data Service for Geophysics
 EOF
 
-# Convert to image file using GhostScript
-gmt psconvert Som_Sediments.ps -A1.0c -E720 -Tj -Z
+# Convert to image/pdf file using GhostScript
+# gmt psconvert Som_Sediments.ps -A1.0c -E720 -Tj -Z
+gmt psconvert Som_Sediments.ps -A1.0c -E720 -Tf -Z
