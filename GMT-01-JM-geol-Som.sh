@@ -23,9 +23,9 @@ grdcut GEBCO_2019.nc -R39/70/-27/12 -Gsom_relief.nc
 gdalinfo som_relief.nc -stats
 # Minimum=-6538.000, Maximum=2805.000
 # Make color palette
-# makecpt --help
-gmt makecpt -Ctopo.cpt -V -T-6857/3206 > myocean.cpt
-
+# gmt makecpt --help
+# gmt makecpt -Ctopo.cpt -V -T-6857/3206 > myocean.cpt
+gmt makecpt -Cturbo.cpt -V -T-6857/3206 > myocean.cpt
 
 # Generate a file
 ps=Geol_Som.ps
@@ -60,7 +60,7 @@ gmt psscale -Dg39/-29.5+w15.2c/0.4c+h+o0.0/0i+ml -R -J -Cmyocean.cpt \
     --FONT_LABEL=8p,Helvetica,black \
     --MAP_LABEL_OFFSET=0.1c \
     --FONT_ANNOT_PRIMARY=6p,Helvetica,black \
-    -Baf+l"Color scale 'topo': Sandwell/Anderson colors for topography [R=-6538/2805, H=0, C=HSV]" \
+    -Baf+l"Color scale 'turbo': Google's Improved Rainbow Colormap for Visualization [C=RGB; R=-6857/3206]" \
     -I0.2 -By+lm -O -K >> $ps
 
 gmt psxy -R -J ridge.gmt -Sf0.5c/0.15c+l+t -Wthin,yellow -Gpurple -O -K >> $ps
@@ -74,11 +74,12 @@ gmt psxy -R -J LIPS.2011.gmt -L -Gpink1@50 -Wthinnest,red -O -K >> $ps
 # Add tectonic slab contours
 gmt psxy -R -J GSFML_SF_FZ_KM.gmt -Wthick,yellow -O -K >> $ps
 gmt psxy -R -J GSFML_SF_FZ_RM.gmt -Wthick,gold1 -O -K >> $ps
-gmt psxy -R -J transform.gmt -Sc0.05c -Ggreen -Wthick,yellow -O -K >> $ps
-gmt psmeca -R CMT.txt -J -Sd0.4/2/u -Gred -L0.1p -O -K >> $ps
-gmt psmeca -R CMT.txt -J -Sc0.1/2/u -Gred -L0.1p -Fa/5p/it \
+# transform faults
+gmt psxy -R -J transform.gmt -Sc0.05c -Ggreen -Wthick,deeppink1 -O -K >> $ps
+#gmt psmeca -R CMT.txt -J -Sd0.4/2/u -Gred -L0.1p -O -K >> $ps
+#gmt psmeca -R CMT.txt -J -Sc0.1/2/u -Gred -L0.1p -Fa/5p/it \
     -Fepurple -Fgmagenta -Ft -W0.1p -Fz -Eyellow -O -K >> $ps
-gmt psmeca CMT.txt -R -J -Sd0.5/2/u -Gred -L0.1p -Fa/5p/it \
+#gmt psmeca CMT.txt -R -J -Sd0.5/2/u -Gred -L0.1p -Fa/5p/it \
     -Fepurple -Fgmagenta -Ft -F+f8p,Times-Roman,yellow+jLB \
     -W0.1p -Fz -Ewhite -O -K >> $ps
 
@@ -178,7 +179,7 @@ S 0.3c t 0.2c red 0.02c 1.0c Volcanoes
 S 0.3c - 0.9c - 0.5p,yellow 1.0c Fracture zones
 S 0.3c - 0.8c - 0.5p,red 1.0c Ridge
 S 0.3c - 0.9c - 1.0p,red 1.0c Tectonic plate boundary
-S 0.3c - 0.9c - 1.0p,yellow 1.0c Transform fault
+S 0.3c - 0.9c - 0.5p,deeppink1 1.0c State borders
 S 0.3c r 0.5c pink1@50 0.01c 1.0c Large igneous province
 FIN
 
@@ -192,4 +193,5 @@ gmt pstext -R0/10/0/15 -JX10/10 -X0.5c -Y13.0c -N -O \
 EOF
 
 # Convert to image file using GhostScript
-gmt psconvert Geol_Som.ps -A2.5c -E720 -Tj -Z
+# gmt psconvert Geol_Som.ps -A2.5c -E720 -Tj -Z
+gmt psconvert Geol_Som.ps -A1.5c -E720 -Tf -Z
