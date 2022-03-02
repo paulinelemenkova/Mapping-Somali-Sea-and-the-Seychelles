@@ -17,7 +17,7 @@ gmt set FORMAT_GEO_MAP=dddF \
 # Overwrite defaults of GMT
 gmtdefaults -D > .gmtdefaults
 
-img2grd grav_27.1.img -R39/70/-27/12 -GgravSom.grd -T1 -I1 -E -S0.1 -V
+gmt img2grd grav_27.1.img -R39/70/-27/12 -GgravSom.grd -T1 -I1 -E -S0.1 -V
 
 gdalinfo gravSom.grd -stats
 # Minimum=-145.066, Maximum=546.361
@@ -126,4 +126,5 @@ gmt pstext -R0/10/0/15 -JX10/10 -X0.5c -Y13.0c -N -O \
 EOF
 
 # Convert to image file using GhostScript
-gmt psconvert Grav_Som.ps -A1.0c -E720 -Tj -Z
+# gmt psconvert Grav_Som.ps -A1.0c -E720 -Tj -Z
+gmt psconvert Grav_Som.ps -A1.0c -E720 -Tf -Z
