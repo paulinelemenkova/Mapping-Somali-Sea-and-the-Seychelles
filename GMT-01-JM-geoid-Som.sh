@@ -18,10 +18,10 @@ gmt set FORMAT_GEO_MAP=dddF \
 gmtdefaults -D > .gmtdefaults
 
 # 'cent2_geoid/' - папка с ESRI GRDI файлами
-gmt grdconvert n00e45/ EGM2008som1.grd
-gmt grdconvert n00e00/ EGM2008som2.grd
-gmt grdconvert s45e45/ EGM2008som3.grd
-gmt grdconvert s45e00/ EGM2008som4.grd
+gmt grdconvert n00e45/w001001.adf EGM2008som1.grd
+gmt grdconvert n00e00/w001001.adf EGM2008som2.grd
+gmt grdconvert s45e45/w001001.adf EGM2008som3.grd
+gmt grdconvert s45e00/w001001.adf EGM2008som4.grd
 
 gdalinfo EGM2008som1.grd -stats
 # Minimum=-106.066, Maximum=22.126
@@ -144,4 +144,5 @@ gmt pstext -R0/10/0/15 -JX10/10 -X0.5c -Y13.0c -N -O \
 EOF
 
 # Convert to image file using GhostScript
-gmt psconvert Geoid_Som.ps -A1.0c -E720 -Tj -Z
+#gmt psconvert Geoid_Som.ps -A1.0c -E720 -Tj -Z
+gmt psconvert Geoid_Som.ps -A1.0c -E720 -Tf -Z
